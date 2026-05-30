@@ -88,7 +88,7 @@ export default function App() {
       <header className="header">
         <div className="header-inner">
           <div className="logo">
-            <div className="logo-dot" />
+              <img src="/icon.png" width="24" height="24" style={{ borderRadius: "4px" }} />
             <span className="logo-text">PONG AI</span>
           </div>
           
