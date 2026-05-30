@@ -89,13 +89,9 @@ export default function App() {
         <div className="header-inner">
           <div className="logo">
             <div className="logo-dot" />
-            <span className="logo-text">ARAE</span>
+            <span className="logo-text">PONG AI</span>
           </div>
-          <nav className="nav-pills">
-            <span className="pill active">Engine</span>
-            <span className="pill">Docs</span>
-            <span className="pill">API</span>
-          </nav>
+          
           <div className="status-badge">
             <span className="status-dot" />
             System Online
