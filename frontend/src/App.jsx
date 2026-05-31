@@ -360,7 +360,7 @@ export default function App() {
               <span className="hero-accent">Team Distribution</span>
             </h1>
             <p className="hero-sub">
-              Upload a project scope document. Set your team size.<br />
+              Upload your project documentation. Set your team size.<br />
               The engine parses, evaluates, and distributes responsibilities into optimized role matrices.
             </p>
           </section>
