@@ -1,4 +1,4 @@
-# Gerong - AI Agent
+# PONG AI - Robert Philippe Gerong
 
 ## Overview
 
