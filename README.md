@@ -1,4 +1,4 @@
-# Gerong - AI Agent
+# PONG AI - Robert Philippe Gerong
 
 ## Overview
 
@@ -110,7 +110,7 @@ The frontend should open on a Vite URL, typically `http://localhost:5173`.
 - `/backend/requirements.txt` — Python dependencies.
 - `/frontend/package.json` — JavaScript dependencies.
 
-## Contact
+## Main Files
 
 For questions or further improvements, inspect:
 - `backend/main.py` for API and AI logic
