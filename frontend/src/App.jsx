@@ -57,6 +57,9 @@ export default function App() {
   const [file, setFile]         = useState(null);
   // Team size counter value
   const [teamSize, setTeamSize] = useState(4);
+  // Specific roles the user wants Pong AI to allocate for (e.g. Backend, Frontend, Team Lead)
+  const [customRoles, setCustomRoles] = useState([]);
+  const [roleInput, setRoleInput]     = useState("");
   // The result object returned from the backend after analysis
   const [result, setResult]     = useState(null);
   // Loading state while waiting for Gemini response
@@ -160,6 +163,7 @@ export default function App() {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("team_size", teamSize);
+    formData.append("roles", customRoles.join(","));
 
     try {
       const res = await fetch(`${API}/api/analyze`, { method: "POST", body: formData });
@@ -259,6 +263,29 @@ export default function App() {
     // Clear persisted last-opened if it was the deleted project
     const last = localStorage.getItem("pong_last_project");
     if (last === id) localStorage.removeItem("pong_last_project");
+  };
+
+  // ── Custom role tags ──────────────────────────────────────────────────────
+  const addRole = () => {
+    const val = roleInput.trim();
+    if (!val) return;
+    if (!customRoles.some((r) => r.toLowerCase() === val.toLowerCase())) {
+      setCustomRoles([...customRoles, val]);
+    }
+    setRoleInput("");
+  };
+
+  const removeRole = (role) => {
+    setCustomRoles(customRoles.filter((r) => r !== role));
+  };
+
+  const onRoleInputKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === ",") {
+      e.preventDefault();
+      addRole();
+    } else if (e.key === "Backspace" && !roleInput && customRoles.length) {
+      removeRole(customRoles[customRoles.length - 1]);
+    }
   };
 
   // Format ISO timestamp into a readable date like "Jan 5, 2025"
@@ -438,6 +465,34 @@ export default function App() {
               </div>
             </div>
 
+            {/* Specific roles input — lets the user tell Pong AI exactly which roles to split work into */}
+            <div className="panel-col">
+              <label className="panel-label">Specific Roles (optional)</label>
+              <div className="roles-input-card">
+                <div className="roles-tag-list">
+                  {customRoles.map((role) => (
+                    <span key={role} className="role-tag">
+                      {role}
+                      <button className="role-tag-remove" onClick={() => removeRole(role)}>✕</button>
+                    </span>
+                  ))}
+                  <input
+                    className="roles-tag-input"
+                    value={roleInput}
+                    placeholder={customRoles.length ? "Add another role…" : "e.g. Backend, Frontend, Team Lead — press Enter"}
+                    onChange={(e) => setRoleInput(e.target.value)}
+                    onKeyDown={onRoleInputKeyDown}
+                    onBlur={addRole}
+                  />
+                </div>
+                <div className="roles-hint">
+                  {customRoles.length
+                    ? "Pong AI will divide tasks across exactly these roles."
+                    : "Leave empty to let Pong AI decide roles automatically."}
+                </div>
+              </div>
+            </div>
+
             {/* Error message bar — only shown when error state is set */}
             {error && <div className="error-bar">⚠ {error}</div>}
 
@@ -457,6 +512,11 @@ export default function App() {
                   <div className="results-meta">
                     {result.total_roles} roles · {result.team_size} engineers · {result.tech_signals?.join(", ")}
                   </div>
+                  {result.requested_roles?.length > 0 && (
+                    <div className="results-meta results-requested">
+                      Requested roles: {result.requested_roles.join(", ")}
+                    </div>
+                  )}
                 </div>
                 <div className="results-count">{result.total_roles} <span>Roles</span></div>
               </div>

@@ -404,6 +404,62 @@ body {
 }
 .track-dot-active { background: var(--accent); }
 
+/* ── Specific roles tag input ─────────────────────────────────────────────── */
+.roles-input-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.roles-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+.role-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(177, 19, 19, 0.1);
+  border: 1px solid var(--border2);
+  border-radius: 999px;
+  padding: 0.25rem 0.5rem 0.25rem 0.75rem;
+  font-size: 13px;
+  color: var(--text);
+}
+.role-tag-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-dim);
+  font-size: 11px;
+  padding: 2px;
+  line-height: 1;
+}
+.role-tag-remove:hover { color: var(--accent); }
+.roles-tag-input {
+  flex: 1;
+  min-width: 180px;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-size: 14px;
+  padding: 0.25rem 0;
+}
+.roles-hint {
+  font-size: 11px;
+  font-family: var(--mono);
+  color: var(--text-dim);
+}
+.results-requested {
+  margin-top: 0.25rem;
+}
+
 /* ── Error bar ────────────────────────────────────────────────────────────── */
 .error-bar {
   background: rgba(239, 68, 68, 0.08);
